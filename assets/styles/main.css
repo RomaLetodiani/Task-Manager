@@ -1,8 +1,25 @@
+:root {
+  --primary-color: #007bff; /* A strong blue */
+  --primary-hover-color: #0056b3; /* Darker blue for hover effect */
+  --secondary-color: #6c757d; /* A neutral grey */
+  --secondary-hover-color: #545b62; /* Darker grey for hover effect */
+  --danger-color: #dc3545; /* A strong red for danger actions */
+  --danger-hover-color: #bd2130; /* Darker red for hover effect */
+  --background-color: #f8f9fa; /* A light grey for background */
+  --text-color: #212529; /* A dark grey for text */
+  --task-done-color: #28a745; /* A strong green for done tasks */
+  --white: #ffffff; /* White color */
+}
+
+/* We can also use CSS Nesting - https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_nesting/Using_CSS_nesting */
+/* We can also seperate each components styles in different files but the app is simple and i will keep everything here */
+
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Gill Sans", sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 #app {
@@ -13,9 +30,18 @@ body {
 
 header,
 footer {
-  background-color: #f8f8f8;
+  background-color: var(--white);
   padding: 1em;
   text-align: center;
+}
+
+header h1 {
+  text-transform: uppercase;
+}
+
+footer p {
+  font-size: 0.8em;
+  color: var(--secondary-color);
 }
 
 main {
@@ -23,10 +49,127 @@ main {
   padding: 1em;
 }
 
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .task {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5em;
-  border-bottom: 1px solid #ddd;
+  padding: 1rem;
+  gap: 20px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.task > .actions,
+.task > .inputs {
+  display: flex;
+  gap: 8px;
+}
+
+.task > .inputs {
+  flex-grow: 1;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+}
+
+.task input[type="checkbox"] {
+  cursor: pointer;
+}
+
+.task textarea {
+  border: 1px solid var(--secondary-color);
+  border-radius: 6px;
+  padding: 5px;
+  resize: vertical; /* Allow vertical resizing */
+  width: 100%;
+  max-height: 200px; /* Maximum height for textarea */
+}
+
+.task textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.task textarea.done {
+  text-decoration: line-through;
+  color: var(--task-done-color);
+}
+
+.task textarea[readonly] {
+  background-color: var(--background-color);
+  resize: none;
+  height: auto;
+  border: transparent 1px solid;
+  pointer-events: none;
+  flex-grow: 1;
+}
+
+button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: var(--primary-hover-color);
+}
+
+button.delete {
+  background-color: var(--danger-color);
+}
+
+button.delete:hover {
+  background-color: var(--danger-hover-color);
+}
+
+button.edit {
+  background-color: var(--secondary-color);
+}
+
+button.edit:hover {
+  background-color: var(--secondary-hover-color);
+}
+
+/* This styles the main scrollbar container */
+::-webkit-scrollbar {
+  width: 8px; /* width of the entire scrollbar */
+  height: 4px; /* height of the entire scrollbar */
+}
+
+/* This styles the scrollbar track (the part the thumb slides within) */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* color of the tracking area */
+}
+
+/* This styles the scrollbar thumb (the draggable element) */
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color); /* color of the thumb */
+  border-radius: 6px; /* roundness of the thumb */
+  transition: all 0.5s;
+}
+
+/* This changes the thumb color on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* color of the thumb on hover */
+  transition: all 0.5s;
+}
+
+/* We can make new CSS file for responsive only Design */
+@media (max-width: 768px) {
+  .task {
+    flex-direction: column;
+  }
+
+  .task textarea {
+    min-height: 100px;
+  }
 }
