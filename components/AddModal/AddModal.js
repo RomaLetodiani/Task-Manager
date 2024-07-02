@@ -23,6 +23,8 @@ export const renderAddModal = (tasks) => {
       `;
 
   app.appendChild(modal);
+  const titleInput = modal.querySelector("#addModalTitleInput");
+  titleInput.focus();
   // Add event listener for cancel button
   const cancelButton = modal.querySelector(".cancel");
   cancelButton.addEventListener("click", () => {
