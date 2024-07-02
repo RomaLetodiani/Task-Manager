@@ -3,6 +3,11 @@ import { createTaskElement } from "./Task/task.js";
 // I would build pagination or infinite scroll here but for the sake of simplicity I will just render all tasks
 export const renderTaskList = (tasks) => {
   const taskList = document.querySelector(".task-list");
+  if (!taskList) {
+    console.error("Task list element not found");
+    return;
+  }
+
   // Dom Batching - https://developers.google.com/web/updates/2019/02/rendering-on-the-web
   // Create a document fragment to append all tasks at once
   // This is more efficient than appending each task individually

@@ -1,7 +1,12 @@
 import { renderAddModal } from "../components/AddModal/AddModal.js";
 
-export const renderHeader = () => {
+export const renderHeader = (tasks) => {
   const header = document.querySelector("header");
+  if (!header) {
+    console.error("Header element not found");
+    return;
+  }
+
   header.innerHTML = `
   <div>
   <h1>Task Manager</h1>
@@ -10,5 +15,9 @@ export const renderHeader = () => {
     `;
 
   const addTaskButton = header.querySelector(".add-task");
-  addTaskButton.addEventListener("click", renderAddModal);
+  if (!addTaskButton) {
+    console.error("Add Task button not found");
+    return;
+  }
+  addTaskButton.addEventListener("click", () => renderAddModal(tasks));
 };

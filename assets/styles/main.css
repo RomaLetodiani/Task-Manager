@@ -10,8 +10,6 @@
   --task-done-color: #28a745; /* A strong green for done tasks */
   --white: #ffffff; /* White color */
   --light-black: #00000020; /* Black color */
-
-  /* We can add more colors here */
   --blue-gradient-start: #00e5ff; /* A blue color for gradient */
   --blue-gradient-stop: #2e22d4; /* A blue color for gradient */
 }
@@ -164,9 +162,8 @@ button.edit:hover {
   left: 0;
   height: 100%;
   width: 100%;
-  z-index: 2;
   opacity: 1;
-  pointer-events: none;
+  z-index: 3;
   transition: all 0.25s ease;
 }
 
@@ -175,11 +172,28 @@ button.edit:hover {
   background: var(--white);
   left: 50%;
   top: 50%;
-  max-width: 500px;
+  max-width: 300px;
   width: 100%;
   transform: translate(-50%, -50%);
   border: 15px solid transparent;
   border-radius: 10px;
+}
+
+.popup-box > .content > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.popup-box > .content .title-row {
+  display: flex;
+  flex-direction: column;
+  margin-block: 10px;
+}
+
+.popup-box > .content .actions {
+  display: flex;
+  gap: 10px;
+  align-self: flex-end;
 }
 
 /* This styles the main scrollbar container */

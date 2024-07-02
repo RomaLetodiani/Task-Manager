@@ -2,12 +2,8 @@ import { saveTasksToLocalStorage } from "../../services/localStorage.js";
 import { isValidTask } from "../../utils/validators.js";
 
 export const checkBoxChange = (checkbox, textInput, task, tasks) => {
-  if (checkbox.checked) {
-    textInput.classList.add("done");
-  } else {
-    textInput.classList.remove("done");
-  }
   task.completed = checkbox.checked;
+  textInput.classList.toggle("done", task.completed);
   saveTasksToLocalStorage(tasks);
 };
 
@@ -19,20 +15,25 @@ export const editButtonClick = (textInput, task, tasks, editButton, checkbox) =>
     return;
   }
 
-  if (editButton.textContent === "Edit") {
+  const isEditing = editButton.textContent === "Edit";
+
+  checkbox.disabled = isEditing;
+  textInput.readOnly = !isEditing;
+
+  if (isEditing) {
     checkbox.disabled = true;
-    textInput.removeAttribute("readonly");
     textInput.focus();
     editButton.textContent = "Update";
   } else {
-    checkbox.disabled = false;
-    const isTaskValid = isValidTask({ ...task, title: textInput.value });
+    const newTitle = textInput.value.trim();
+    const isTaskValid = isValidTask({ ...task, title: newTitle });
+
     if (!isTaskValid) {
       alert("Task title is required");
       return;
     }
-    textInput.setAttribute("readonly", "readonly");
-    task.title = textInput.value;
+
+    task.title = newTitle;
     saveTasksToLocalStorage(tasks);
     editButton.textContent = "Edit";
   }
@@ -40,7 +41,11 @@ export const editButtonClick = (textInput, task, tasks, editButton, checkbox) =>
 
 export const deleteButtonClick = (task, tasks, taskElement) => {
   const index = tasks.findIndex((t) => t.id === task.id);
-  tasks.splice(index, 1);
-  saveTasksToLocalStorage(tasks);
-  taskElement.remove();
+  if (index !== -1) {
+    tasks.splice(index, 1);
+    saveTasksToLocalStorage(tasks);
+    taskElement.remove();
+  } else {
+    console.error("Task not found in the list");
+  }
 };

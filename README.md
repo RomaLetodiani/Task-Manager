@@ -33,7 +33,11 @@ task-manager/
 │   ├── styles/
 │   │   └── main.css
 ├── components/
-│   ├── task.js
+│   ├── AddModal/
+│   │   └── AddModal.js
+│   ├── Task/
+│   │   ├── eventListeners.js
+│   │   └── task.js
 │   └── taskList.js
 ├── layout/
 │   ├── header.js

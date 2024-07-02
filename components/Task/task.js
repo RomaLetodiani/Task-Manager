@@ -4,8 +4,8 @@ import { checkBoxChange, deleteButtonClick, editButtonClick } from "./eventListe
 export const createTaskElement = (task, tasks) => {
   const taskElement = document.createElement("div");
   taskElement.className = "task";
-  const checkboxId = generateUniqueId(task.id + "checkbox");
-  const textareaId = generateUniqueId(task.id + "textarea");
+  const checkboxId = generateUniqueId(`${task.id}-checkbox`);
+  const textareaId = generateUniqueId(`${task.id}-textarea`);
   const checked = task.completed ? "checked" : "";
 
   taskElement.innerHTML = `
