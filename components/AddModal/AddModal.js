@@ -1,34 +1,35 @@
-export const renderAddModal = () => {
-  const app = document.querySelector("#app");
+import { addButtonClick } from "./eventListeners.js";
 
+export const renderAddModal = (tasks) => {
+  const app = document.querySelector("#app");
   const modal = document.createElement("div");
   modal.classList.add("popup");
   modal.innerHTML = `
             <div class="popup-box">
                 <div class="content">
-                    <div id="popup">Please Provide A Title or Description</div>
-                    <header>
-                        <h2>Add A New Note</h2>
-                    </header>
-                    <main>
+                    <h2>Add A New Task</h2>
+                    <div>
                         <div class="title-row">
-                            <h2>Title</h2>
-                            <input type="text" placeholder="Enter your Note title Here">
+                            <label for="addModalTitleInput">Title</label>
+                            <textarea id="addModalTitleInput" placeholder="Enter your Task Here"></textarea>
                         </div>
-                        <div class="description-row">
-                            <h2>Description</h2>
-                            <textarea id="description-text" placeholder="Enter your Note Description Here"></textarea>
+                        <div class="actions">
+                            <button class="cancel">Cancel</button>
+                            <button class="add-task">Add Task</button>
                         </div>
-                        <button>Add Note</button>
-                    </main>
+                    </div>
                 </div>
             </div>
       `;
 
   app.appendChild(modal);
-
-  const closeButton = modal.querySelector(".close");
-  closeButton.addEventListener("click", () => {
+  // Add event listener for cancel button
+  const cancelButton = modal.querySelector(".cancel");
+  cancelButton.addEventListener("click", () => {
     modal.remove();
   });
+
+  // Add event listener for add task button
+  const addTaskButton = modal.querySelector(".add-task");
+  addTaskButton.addEventListener("click", addButtonClick.bind(null, tasks, modal));
 };
